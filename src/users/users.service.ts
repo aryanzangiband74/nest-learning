@@ -31,11 +31,11 @@ export class UsersService {
     };
   }
 
-  create(body: Omit<CreateUserDto, 'id'>) {
-    const user = { id: this.users.length + 1, ...body };
+  create(body: CreateUserDto) {
+    const user = { id: body.id, name: body.name, email: body.email };
     this.users.push(user);
     return {
-      data: user,
+      data: this.users,
       message: 'User created successfully',
       status: 201
     };
