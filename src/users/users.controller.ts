@@ -1,7 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto/update-user.dto';
+import { CustomPipe } from 'src/pipes/custom/custom.pipe';
+import { MobilePipe } from 'src/pipes/validate/mobile/mobile.pipe';
 
 @Controller('users')
 export class UsersController {
@@ -13,13 +15,13 @@ export class UsersController {
   }
 
   @Get('/:id')
-  show(@Param('id') id: number) {
+  show(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.getById(Number(id));
   }
 
   //pipes
   @Post('/create')
-  create(@Body(new ValidationPipe()) data: CreateUserDto) {
+  create(@Body(new MobilePipe()) data: CreateUserDto) {
     return this.usersService.create(data);
   }
 

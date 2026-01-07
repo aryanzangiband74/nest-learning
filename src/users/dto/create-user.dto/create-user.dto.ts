@@ -20,4 +20,8 @@ export class CreateUserDto {
   @MaxLength(100)
   @IsNotEmpty()
   email: string;
+
+  // @IsNotEmpty()
+  // @IsString()
+  // mobile: string;
 }
