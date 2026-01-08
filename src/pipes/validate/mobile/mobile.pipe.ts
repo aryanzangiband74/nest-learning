@@ -2,6 +2,8 @@ import { ArgumentMetadata, BadRequestException, Injectable, PipeTransform } from
 
 @Injectable()
 export class MobilePipe implements PipeTransform {
+  constructor(private readonly mobileLength: number) {}
+
   transform(value: any, metadata: ArgumentMetadata) {
     const mobile: string = value.mobile;
     const regex = /^01[0-2|5]{1}[0-9]{8}$/;
@@ -10,7 +12,7 @@ export class MobilePipe implements PipeTransform {
       throw new BadRequestException('Mobile number is required');
     }
 
-    if (mobile.length !== 11) {
+    if (mobile.length !== this.mobileLength) {
       throw new BadRequestException('Mobile number must be 11 digits');
     } else if (mobile.startsWith('0912')) {
       value.mobile = '0999999' + mobile.slice(3);

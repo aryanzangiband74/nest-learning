@@ -21,7 +21,7 @@ export class UsersController {
 
   //pipes
   @Post('/create')
-  create(@Body(new MobilePipe()) data: CreateUserDto) {
+  create(@Body(new MobilePipe(11)) data: CreateUserDto) {
     return this.usersService.create(data);
   }
 
